@@ -1,0 +1,13 @@
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.exe
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.deps.json
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.runtimeconfig.json
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.runtimeconfig.dev.json
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.dll
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\bin\Debug\netcoreapp3.1\proj_3.pdb
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.csprojAssemblyReference.cache
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.csproj.CoreCompileInputs.cache
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.AssemblyInfoInputs.cache
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.AssemblyInfo.cs
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.dll
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.pdb
+C:\Users\MGSam\AulaMatDiscreta\henrique_samii_dr1_at_proj_3_e_4\proj_3\obj\Debug\netcoreapp3.1\proj_3.genruntimeconfig.cache
