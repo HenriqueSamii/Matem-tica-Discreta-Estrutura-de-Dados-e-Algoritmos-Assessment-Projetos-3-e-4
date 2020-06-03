@@ -10,6 +10,7 @@ namespace proj_3
         //Criar lista de Caminhao
         static void Main(string[] args)
         {
+            System.Console.WriteLine( 97%95);
             //Setar lista de Locais
             //Setar lista de ItemEntrega
             //Setar lista de Caminhao
@@ -29,19 +30,19 @@ namespace proj_3
                         inserirPontoDeEntrega();
                         break;
                     case 2:
-                        //do
+                        inserirItemDeEntrega();
                         break;
                     case 3:
-                        //do
+                        inserirCamiao();
                         break;
                     case 4:
-                        //do
+                        associarItemAPontoDeEntrega();
                         break;
                     case 5:
-                        //do
+                        associarPontoDeEntregaACamiao();
                         break;
                     case 6:
-                        //do
+                        realizarEntregas();
                         break;
                     default:
                         System.Console.WriteLine("Essa opção nao exist, tente novamente");
