@@ -9,16 +9,38 @@ namespace proj_3.Domain
         public Queue<Local> PontosDeEntrega { get; private set; }
 
         private readonly int Lotacao = 20;
+        private int ItensNaCacamba;
 
         ///////////////////////////////////////////////////////////
-        
+
         public Caminhao(string placa)
         {
             this.Placa = placa;
             this.PontosDeEntrega = new Queue<Local>();
+            this.ItensNaCacamba = 0;
         }
 
         ///////////////////////////////////////////////////////////
+
+        public string adecionarLocal(ref Local localAdicionado)
+        {
+            if (this.ItensNaCacamba == this.Lotacao)
+            {
+                return "Camião lotado";
+            }
+            var localHolder = new Local(localAdicionado.Identificador, localAdicionado.Nome);
+            while (this.ItensNaCacamba != this.Lotacao && localAdicionado.ItensEntrega.Count > 0)
+            {
+                localHolder.ItensEntrega.Push(localAdicionado.ItensEntrega.Pop());
+            }
+            this.PontosDeEntrega.Enqueue(localHolder);
+            string retorno = "Itens para " + localAdicionado.Nome + " carregados";
+            if (this.ItensNaCacamba == this.Lotacao)
+            {
+                retorno += ", capasidade do caminhão lodado";
+            }
+            return retorno;
+        }
 
         public override string ToString()
         {
@@ -34,7 +56,7 @@ namespace proj_3.Domain
                 int holderPosicaoItem = 0;
                 foreach (var item in local.ItensEntrega)
                 {
-                    final += "\t\t"+ util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
+                    final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
                     //holderPosicaoItem++;
                 }
                 //holderPosicaoLocal++;

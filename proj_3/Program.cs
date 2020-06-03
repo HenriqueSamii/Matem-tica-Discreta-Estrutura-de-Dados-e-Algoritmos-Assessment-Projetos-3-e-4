@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using proj_3.Domain;
 
 namespace proj_3
 {
     class Program
     {
         private static int itemMenu = -1;
-        //Criar lista de Locais
-        //Criar lista de ItemEntrega
-        //Criar lista de Caminhao
+        private static List<Local> locais;
+        private static List<ItemEntrega> itens;
+        public static Queue<Caminhao> pontosDeEntrega;
         static void Main(string[] args)
         {
-            System.Console.WriteLine( 97%95);
-            //Setar lista de Locais
-            //Setar lista de ItemEntrega
-            //Setar lista de Caminhao
+            locais = new List<Local>();
+            itens = new List<ItemEntrega>();
+            pontosDeEntrega = new Queue<Caminhao>();
+
             while (itemMenu != 0)
             {
                 System.Console.WriteLine("[1] Inserir ponto de entrega;\n[2] Inserir item de entrega;\n[3] Inserir caminhão;\n[4] Associar item a ponto de entrega;"
