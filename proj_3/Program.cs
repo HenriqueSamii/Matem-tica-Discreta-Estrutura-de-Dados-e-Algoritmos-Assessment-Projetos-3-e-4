@@ -9,12 +9,12 @@ namespace proj_3
         private static int itemMenu = -1;
         private static List<Local> locais;
         private static List<ItemEntrega> itens;
-        public static Queue<Caminhao> pontosDeEntrega;
+        public static Queue<Caminhao> caminhoes;
         static void Main(string[] args)
         {
             locais = new List<Local>();
             itens = new List<ItemEntrega>();
-            pontosDeEntrega = new Queue<Caminhao>();
+            caminhoes = new Queue<Caminhao>();
 
             while (itemMenu != 0)
             {
@@ -29,10 +29,10 @@ namespace proj_3
                     case 0:
                         break;
                     case 1:
-                        inserirPontoDeEntrega();
+                        System.Console.WriteLine(inserirPontoDeEntrega());
                         break;
                     case 2:
-                        inserirItemDeEntrega();
+                        System.Console.WriteLine(inserirItemDeEntrega());
                         break;
                     case 3:
                         inserirCamiao();
@@ -54,14 +54,52 @@ namespace proj_3
             }
             Console.WriteLine("Programa terminado");
         }
-        private static void inserirPontoDeEntrega(){
-            System.Console.WriteLine("teste");
+        private static string inserirPontoDeEntrega(){
+            System.Console.WriteLine("Insira o nome do novo ponto de entrega:");
+            string nomeNovo = System.Console.ReadLine();
+            int identificador = 0;
+            foreach (var local in locais)
+            {
+                if (local.Nome.ToLower() == nomeNovo.ToLower())
+                {
+                    return "Ponto de entrega "+ nomeNovo +" já existe";   
+                }
+                if (local.Identificador > identificador)
+                {
+                    identificador = local.Identificador+1;
+                }
+            }
+            Local novoLocal = new Local(identificador,nomeNovo);
+            locais.Add(novoLocal);
+            return "Ponto de entrega " + nomeNovo + " criado";
         }
-        private static void inserirItemDeEntrega(){
-            System.Console.WriteLine("teste");
+        private static string inserirItemDeEntrega(){
+            System.Console.WriteLine("Insira o nome do novo item de entrega:");
+            string nomeNovo = System.Console.ReadLine();
+            int identificador = 0;
+            foreach (var local in locais)
+            {
+                if (local.Identificador > identificador)
+                {
+                    identificador = local.Identificador+1;
+                }
+            }
+            ItemEntrega novoItem = new ItemEntrega(identificador,nomeNovo);
+            itens.Add(novoItem);
+            return "Item de entrega " + nomeNovo + " criado";
         }
-        private static void inserirCamiao(){
-            System.Console.WriteLine("teste");
+        private static string inserirCamiao(){
+            string placaNova = System.Console.ReadLine();
+            foreach (var local in locais)
+            {
+                if (local.Nome.ToLower() == placaNova.ToLower())
+                {
+                    return "Placa "+ placaNova +" já existe";   
+                }
+            }
+            Caminhao novoCaminhao = new Caminhao(placaNova);
+            caminhoes.Enqueue(novoCaminhao);
+            return "Camião de placa " + placaNova + " criado";
         }
         private static void associarItemAPontoDeEntrega(){
             System.Console.WriteLine("teste");
@@ -70,7 +108,10 @@ namespace proj_3
             System.Console.WriteLine("teste");
         }
         private static void realizarEntregas(){
-            System.Console.WriteLine("teste");
+            while (caminhoes.Count > 0)
+            {
+                System.Console.WriteLine(caminhoes.Dequeue().ToString());
+            }
         }
     }
 }
