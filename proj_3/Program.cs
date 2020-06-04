@@ -38,7 +38,7 @@ namespace proj_3
                         System.Console.WriteLine(inserirCamiao());
                         break;
                     case 4:
-                        associarItemAPontoDeEntrega();
+                        System.Console.WriteLine(associarItemAPontoDeEntrega());
                         break;
                     case 5:
                         associarPontoDeEntregaACamiao();
@@ -106,18 +106,18 @@ namespace proj_3
         }
         private static string associarItemAPontoDeEntrega()
         {
-            string retorno = "";
+            string retornoErro = "";
             if (itens.Count == 0)
             {
-                retorno += "Nao existe itens para serem adecionados. ";
+                retornoErro += "Nao existe itens para serem adecionados. ";
             }
             if (locais.Count == 0)
             {
-                retorno += "Nao existe locais para adecionar itens. ";
+                retornoErro += "Nao existe locais para adecionar itens. ";
             }
-            if (retorno != "")
+            if (retornoErro != "")
             {
-                return retorno;
+                return retornoErro;
             }
 
             int itemNum = -1;
@@ -144,9 +144,12 @@ namespace proj_3
             {
                 return "Erro, opção não permetida. Tente novamente";
             }
+            
+            locais[localNum].ItensEntrega.Push(new ItemEntrega(itens[itemNum].Identificador,itens[itemNum].Nome));
 
+            itens.RemoveAt(itemNum);
 
-            System.Console.WriteLine("teste");
+            return("Item " +  locais[localNum].ItensEntrega.Peek().Nome + " adecionado em" + locais[localNum].Nome);
         }
         private static void associarPontoDeEntregaACamiao()
         {
