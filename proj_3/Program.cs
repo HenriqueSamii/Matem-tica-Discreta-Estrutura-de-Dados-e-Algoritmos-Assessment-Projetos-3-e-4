@@ -35,7 +35,7 @@ namespace proj_3
                         System.Console.WriteLine(inserirItemDeEntrega());
                         break;
                     case 3:
-                        inserirCamiao();
+                        System.Console.WriteLine(inserirCamiao());
                         break;
                     case 4:
                         associarItemAPontoDeEntrega();
@@ -54,7 +54,8 @@ namespace proj_3
             }
             Console.WriteLine("Programa terminado");
         }
-        private static string inserirPontoDeEntrega(){
+        private static string inserirPontoDeEntrega()
+        {
             System.Console.WriteLine("Insira o nome do novo ponto de entrega:");
             string nomeNovo = System.Console.ReadLine();
             int identificador = 0;
@@ -62,18 +63,19 @@ namespace proj_3
             {
                 if (local.Nome.ToLower() == nomeNovo.ToLower())
                 {
-                    return "Ponto de entrega "+ nomeNovo +" já existe";   
+                    return "Ponto de entrega " + nomeNovo + " já existe";
                 }
                 if (local.Identificador > identificador)
                 {
-                    identificador = local.Identificador+1;
+                    identificador = local.Identificador + 1;
                 }
             }
-            Local novoLocal = new Local(identificador,nomeNovo);
+            Local novoLocal = new Local(identificador, nomeNovo);
             locais.Add(novoLocal);
             return "Ponto de entrega " + nomeNovo + " criado";
         }
-        private static string inserirItemDeEntrega(){
+        private static string inserirItemDeEntrega()
+        {
             System.Console.WriteLine("Insira o nome do novo item de entrega:");
             string nomeNovo = System.Console.ReadLine();
             int identificador = 0;
@@ -81,33 +83,77 @@ namespace proj_3
             {
                 if (local.Identificador > identificador)
                 {
-                    identificador = local.Identificador+1;
+                    identificador = local.Identificador + 1;
                 }
             }
-            ItemEntrega novoItem = new ItemEntrega(identificador,nomeNovo);
+            ItemEntrega novoItem = new ItemEntrega(identificador, nomeNovo);
             itens.Add(novoItem);
             return "Item de entrega " + nomeNovo + " criado";
         }
-        private static string inserirCamiao(){
+        private static string inserirCamiao()
+        {
             string placaNova = System.Console.ReadLine();
             foreach (var local in locais)
             {
                 if (local.Nome.ToLower() == placaNova.ToLower())
                 {
-                    return "Placa "+ placaNova +" já existe";   
+                    return "Placa " + placaNova + " já existe";
                 }
             }
             Caminhao novoCaminhao = new Caminhao(placaNova);
             caminhoes.Enqueue(novoCaminhao);
             return "Camião de placa " + placaNova + " criado";
         }
-        private static void associarItemAPontoDeEntrega(){
+        private static string associarItemAPontoDeEntrega()
+        {
+            string retorno = "";
+            if (itens.Count == 0)
+            {
+                retorno += "Nao existe itens para serem adecionados. ";
+            }
+            if (locais.Count == 0)
+            {
+                retorno += "Nao existe locais para adecionar itens. ";
+            }
+            if (retorno != "")
+            {
+                return retorno;
+            }
+
+            int itemNum = -1;
+            int localNum = -1;
+
+            System.Console.WriteLine("Selecione o numero do item:");
+            for (int i = 0; i < itens.Count; i++)
+            {
+                System.Console.WriteLine(i + ". " + itens[i].Nome);
+            }
+            string inputItemString = System.Console.ReadLine();
+            if (!int.TryParse(inputItemString, out itemNum) || itemNum > itens.Count-1 )
+            {
+                return "Erro, opção não permetida. Tente novamente";
+            }
+
+            System.Console.WriteLine("Selecione o numero do local onde adicionar o item:");
+            for (int i = 0; i < locais.Count; i++)
+            {
+                System.Console.WriteLine(i + ". " + locais[i].Nome);
+            }
+            string inputLocalString = System.Console.ReadLine();
+            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count-1 )
+            {
+                return "Erro, opção não permetida. Tente novamente";
+            }
+
+
             System.Console.WriteLine("teste");
         }
-        private static void associarPontoDeEntregaACamiao(){
+        private static void associarPontoDeEntregaACamiao()
+        {
             System.Console.WriteLine("teste");
         }
-        private static void realizarEntregas(){
+        private static void realizarEntregas()
+        {
             while (caminhoes.Count > 0)
             {
                 System.Console.WriteLine(caminhoes.Dequeue().ToString());
