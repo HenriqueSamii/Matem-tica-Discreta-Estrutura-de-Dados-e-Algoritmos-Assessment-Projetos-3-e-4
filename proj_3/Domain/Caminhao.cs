@@ -8,8 +8,8 @@ namespace proj_3.Domain
         public string Placa { get; set; }
         public Queue<Local> PontosDeEntrega { get; private set; }
 
-        private readonly int Lotacao = 20;
-        private int ItensNaCacamba;
+        public readonly int Lotacao = 20;
+        public int ItensNaCacamba { get; private set; }
 
         ///////////////////////////////////////////////////////////
 
@@ -22,18 +22,9 @@ namespace proj_3.Domain
 
         ///////////////////////////////////////////////////////////
 
-        public string adecionarLocal(ref Local localAdicionado)
+        public string adecionarLocal(Local localAdicionado)
         {
-            if (this.ItensNaCacamba == this.Lotacao)
-            {
-                return "Camião lotado";
-            }
-            var localHolder = new Local(localAdicionado.Identificador, localAdicionado.Nome);
-            while (this.ItensNaCacamba != this.Lotacao && localAdicionado.ItensEntrega.Count > 0)
-            {
-                localHolder.ItensEntrega.Push(localAdicionado.ItensEntrega.Pop());
-            }
-            this.PontosDeEntrega.Enqueue(localHolder);
+            this.PontosDeEntrega.Enqueue(localAdicionado);
             string retorno = "Itens para " + localAdicionado.Nome + " carregados";
             if (this.ItensNaCacamba == this.Lotacao)
             {
@@ -64,5 +55,25 @@ namespace proj_3.Domain
             return final;
 
         }
+
+        /*public string adecionarLocal(ref List<Local> localAdicionado, int ponto)
+        {
+            if (this.ItensNaCacamba == this.Lotacao)
+            {
+                return "Camião lotado";
+            }
+            var localHolder = new Local(localAdicionado[ponto].Identificador, localAdicionado[ponto].Nome);
+            while (this.ItensNaCacamba != this.Lotacao && localAdicionado[ponto].ItensEntrega.Count > 0)
+            {
+                localHolder.ItensEntrega.Push(localAdicionado[ponto].ItensEntrega.Pop());
+            }
+            this.PontosDeEntrega.Enqueue(localHolder);
+            string retorno = "Itens para " + localAdicionado[ponto].Nome + " carregados";
+            if (this.ItensNaCacamba == this.Lotacao)
+            {
+                retorno += ", capasidade do caminhão lodado";
+            }
+            return retorno;
+        }*/
     }
 }

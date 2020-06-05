@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using proj_3.Domain;
 
 namespace proj_3
@@ -41,10 +42,10 @@ namespace proj_3
                         System.Console.WriteLine(associarItemAPontoDeEntrega());
                         break;
                     case 5:
-                        associarPontoDeEntregaACamiao();
+                        System.Console.WriteLine(associarPontoDeEntregaACamiao());
                         break;
                     case 6:
-                        realizarEntregas();
+                        System.Console.WriteLine(realizarEntregas());
                         break;
                     default:
                         System.Console.WriteLine("Essa opção nao exist, tente novamente");
@@ -92,6 +93,7 @@ namespace proj_3
         }
         private static string inserirCamiao()
         {
+            System.Console.WriteLine("Insira o numero da placa do novo caminhão:");
             string placaNova = System.Console.ReadLine();
             foreach (var local in locais)
             {
@@ -151,16 +153,62 @@ namespace proj_3
 
             return("Item " +  locais[localNum].ItensEntrega.Peek().Nome + " adecionado em" + locais[localNum].Nome);
         }
-        private static void associarPontoDeEntregaACamiao()
+        private static string associarPontoDeEntregaACamiao()
         {
-            System.Console.WriteLine("teste");
+            int localNum = -1;
+            int caminhaoNum = -1;
+
+            System.Console.WriteLine("Selecione o ponto de entrega:");
+            for (int i = 0; i < locais.Count; i++)
+            {
+                System.Console.WriteLine(i + ". " + locais[i].Nome);
+            }
+            string inputLocalString = System.Console.ReadLine();
+            if (!int.TryParse(inputLocalString, out localNum) || localNum > itens.Count-1 )
+            {
+                return "Erro, opção não permetida. Tente novamente";
+            }
+            if (locais[localNum].ItensEntrega.Count() == 0)
+            {
+                return "Nao é possivel adecionar este local pois ele nao tem itens para entregar";
+            }
+            System.Console.WriteLine("Selecione o caminhão ponto de entrega:");
+            for (int i = 0; i < caminhoes.Count; i++)
+            {
+                System.Console.WriteLine(i + ". " + caminhoes.ElementAt(i).Placa);
+            }
+            string inputCaminhaoString = System.Console.ReadLine();
+            if (!int.TryParse(inputCaminhaoString, out caminhaoNum) || caminhaoNum > caminhoes.Count-1 )
+            {
+                return "Erro, opção não permetida. Tente novamente";
+            }
+
+            int max = caminhoes.ElementAt(caminhaoNum).Lotacao;
+            int numdeInts = caminhoes.ElementAt(caminhaoNum).ItensNaCacamba;
+            if (max == numdeInts)
+            {
+                return "Camião lotado";
+            }
+            var localHolder = new Local(locais[localNum].Identificador, locais[localNum].Nome);
+            while (max != numdeInts && locais[localNum].ItensEntrega.Count > 0)
+            {
+                localHolder.ItensEntrega.Push(locais[localNum].ItensEntrega.Pop());
+            }
+
+            return caminhoes.ElementAt(caminhaoNum).adecionarLocal(localHolder);
         }
-        private static void realizarEntregas()
+        private static string realizarEntregas()
         {
+            if (caminhoes.Count == 0)
+            {
+                return "Sem entregas marcadas";
+            }
+            string returnString = "";
             while (caminhoes.Count > 0)
             {
-                System.Console.WriteLine(caminhoes.Dequeue().ToString());
+                returnString += caminhoes.Dequeue().ToString()+"\n\n";
             }
+            return returnString;
         }
     }
 }
