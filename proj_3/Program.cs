@@ -11,11 +11,34 @@ namespace proj_3
         private static List<Local> locais;
         private static List<ItemEntrega> itens;
         public static List<Caminhao> caminhoes;
+        public static int identificadorItem = 0;
+        public static int identificadorLocal = 0;
         static void Main(string[] args)
         {
             locais = new List<Local>();
             itens = new List<ItemEntrega>();
             caminhoes = new List<Caminhao>();
+
+            //teste - variaveis
+            for (int i = 0; i < 40; i++)
+            {
+                itens.Add(new ItemEntrega(++identificadorItem, ("item " + i)));
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                locais.Add(new Local(++identificadorLocal, ("Lugar " + i)));
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                caminhoes.Add(new Caminhao("Caminhão " + i));
+            }
+            caminhoes[0].adecionarLocal(0);
+            caminhoes[0].adecionarLocal(1);
+            caminhoes[1].adecionarLocal(1);
+            caminhoes[1].adecionarLocal(2);
+            caminhoes[2].adecionarLocal(3);
+            //////////
 
             while (itemMenu != 0)
             {
@@ -59,19 +82,15 @@ namespace proj_3
         {
             System.Console.WriteLine("Insira o nome do novo ponto de entrega:");
             string nomeNovo = System.Console.ReadLine();
-            int identificador = 0;
             foreach (var local in locais)
             {
                 if (local.Nome.ToLower() == nomeNovo.ToLower())
                 {
                     return "Ponto de entrega " + nomeNovo + " já existe";
                 }
-                if (local.Identificador > identificador)
-                {
-                    identificador = local.Identificador + 1;
-                }
             }
-            Local novoLocal = new Local(identificador, nomeNovo);
+
+            Local novoLocal = new Local(++identificadorLocal, nomeNovo);
             locais.Add(novoLocal);
             return "Ponto de entrega " + nomeNovo + " criado";
         }
@@ -79,15 +98,7 @@ namespace proj_3
         {
             System.Console.WriteLine("Insira o nome do novo item de entrega:");
             string nomeNovo = System.Console.ReadLine();
-            int identificador = 0;
-            foreach (var local in locais)
-            {
-                if (local.Identificador > identificador)
-                {
-                    identificador = local.Identificador + 1;
-                }
-            }
-            ItemEntrega novoItem = new ItemEntrega(identificador, nomeNovo);
+            ItemEntrega novoItem = new ItemEntrega(++identificadorItem, nomeNovo);
             itens.Add(novoItem);
             return "Item de entrega " + nomeNovo + " criado";
         }
