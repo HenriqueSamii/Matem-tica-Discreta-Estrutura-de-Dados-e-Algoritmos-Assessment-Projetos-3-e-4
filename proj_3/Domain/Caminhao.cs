@@ -31,32 +31,27 @@ namespace proj_3.Domain
         public string entregar(ref List<Local> locais)
         {
             string final = "Percurso do caminhão " + this.Placa + ":\n";
+            if (this.IndexPontosDeEntrega.Count == 0)
+            {
+                return final + "Caminha sem entregas";
+            }
             int holderPosicaoLocal = 0;
             int itensEntregues = 0;
             while (this.IndexPontosDeEntrega.Count != 0 && itensEntregues != this.Lotacao)
             {
                 Local local = locais[IndexPontosDeEntrega.Dequeue()];
+                final += "\t" + util.posicaoAlfabetica(holderPosicaoLocal++)
+                + ". Visitado ponto de entrega "
+                + local.Nome
+                + ". Foram entregues os itens:\n";
 
-                if (local.ItensEntrega.Count == 0)
+                int holderPosicaoItem = 0;
+                while (local.ItensEntrega.Count != 0 && itensEntregues != this.Lotacao)
                 {
-                    final += "";
+                    ItemEntrega item = local.ItensEntrega.Pop();
+                    final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
+                    itensEntregues++;
                 }
-                else
-                {
-                    final += "\t" + util.posicaoAlfabetica(holderPosicaoLocal++)
-                    + ". Visitado ponto de entrega "
-                    + local.Nome
-                    + ". Foram entregues os itens:\n";
-
-                    int holderPosicaoItem = 0;
-                    while (local.ItensEntrega.Count != 0 && itensEntregues != this.Lotacao)
-                    {
-                        ItemEntrega item = local.ItensEntrega.Pop();
-                        final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
-                        itensEntregues++;
-                    }
-                }
-
                 //holderPosicaoLocal++;
             }
             return final;
