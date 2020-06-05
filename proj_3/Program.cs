@@ -10,12 +10,12 @@ namespace proj_3
         private static int itemMenu = -1;
         private static List<Local> locais;
         private static List<ItemEntrega> itens;
-        public static Queue<Caminhao> caminhoes;
+        public static List<Caminhao> caminhoes;
         static void Main(string[] args)
         {
             locais = new List<Local>();
             itens = new List<ItemEntrega>();
-            caminhoes = new Queue<Caminhao>();
+            caminhoes = new List<Caminhao>();
 
             while (itemMenu != 0)
             {
@@ -103,7 +103,7 @@ namespace proj_3
                 }
             }
             Caminhao novoCaminhao = new Caminhao(placaNova);
-            caminhoes.Enqueue(novoCaminhao);
+            caminhoes.Add(novoCaminhao);
             return "Camião de placa " + placaNova + " criado";
         }
         private static string associarItemAPontoDeEntrega()
@@ -204,9 +204,12 @@ namespace proj_3
                 return "Sem entregas marcadas";
             }
             string returnString = "";
-            while (caminhoes.Count > 0)
+            foreach (var caminhao in caminhoes)
             {
-                returnString += caminhoes.Dequeue().ToString()+"\n\n";
+                if (caminhao.PontosDeEntrega.Count() != 0)
+                {
+                    returnString += caminhao.ToString()+"\n\n";
+                }
             }
             return returnString;
         }

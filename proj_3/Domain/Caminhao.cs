@@ -33,6 +33,31 @@ namespace proj_3.Domain
             return retorno;
         }
 
+        public string entregar()
+        {
+            string final = "Percurso do caminhão " + this.Placa + ":\n";
+            int holderPosicaoLocal = 0;
+            while (this.PontosDeEntrega.Count != 0)
+            {
+                Local local = PontosDeEntrega.Dequeue();
+                final += "\t" + util.posicaoAlfabetica(holderPosicaoLocal++)
+                + ". Visitado ponto de entrega "
+                + local.Nome
+                + ". Foram entregues os itens:\n";
+
+                int holderPosicaoItem = 0;
+                while (local.ItensEntrega.Count != 0)
+                {
+                    ItemEntrega item = local.ItensEntrega.Pop();
+                    final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
+                    //holderPosicaoItem++;
+                }
+                //holderPosicaoLocal++;
+            }
+            return final;
+
+        }
+
         public override string ToString()
         {
             string final = "Percurso do caminhão " + this.Placa + ":\n";
