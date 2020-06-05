@@ -164,13 +164,9 @@ namespace proj_3
                 System.Console.WriteLine(i + ". " + locais[i].Nome);
             }
             string inputLocalString = System.Console.ReadLine();
-            if (!int.TryParse(inputLocalString, out localNum) || localNum > itens.Count-1 )
+            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count-1 )
             {
                 return "Erro, opção não permetida. Tente novamente";
-            }
-            if (locais[localNum].ItensEntrega.Count() == 0)
-            {
-                return "Nao é possivel adecionar este local pois ele nao tem itens para entregar";
             }
             System.Console.WriteLine("Selecione o caminhão ponto de entrega:");
             for (int i = 0; i < caminhoes.Count; i++)
@@ -183,19 +179,9 @@ namespace proj_3
                 return "Erro, opção não permetida. Tente novamente";
             }
 
-            int max = caminhoes.ElementAt(caminhaoNum).Lotacao;
-            int numdeInts = caminhoes.ElementAt(caminhaoNum).ItensNaCacamba;
-            if (max == numdeInts)
-            {
-                return "Camião lotado";
-            }
-            var localHolder = new Local(locais[localNum].Identificador, locais[localNum].Nome);
-            while (max != numdeInts && locais[localNum].ItensEntrega.Count > 0)
-            {
-                localHolder.ItensEntrega.Push(locais[localNum].ItensEntrega.Pop());
-            }
+            caminhoes[caminhaoNum].adecionarLocal(localNum);
 
-            return caminhoes.ElementAt(caminhaoNum).adecionarLocal(localHolder);
+            return "Pondo de entrega " + locais[localNum].Nome + " andecionado no camhão" + caminhoes[caminhaoNum].Placa;
         }
         private static string realizarEntregas()
         {
@@ -206,10 +192,7 @@ namespace proj_3
             string returnString = "";
             foreach (var caminhao in caminhoes)
             {
-                if (caminhao.PontosDeEntrega.Count() != 0)
-                {
-                    returnString += caminhao.ToString()+"\n\n";
-                }
+                returnString += caminhao.entregar(ref locais)+"\n\n";
             }
             return returnString;
         }

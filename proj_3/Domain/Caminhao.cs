@@ -6,7 +6,7 @@ namespace proj_3.Domain
     public class Caminhao
     {
         public string Placa { get; set; }
-        public Queue<Local> PontosDeEntrega { get; private set; }
+        public Queue<int> IndexPontosDeEntrega { get; private set; }
 
         public readonly int Lotacao = 20;
         public int ItensNaCacamba { get; private set; }
@@ -16,49 +16,54 @@ namespace proj_3.Domain
         public Caminhao(string placa)
         {
             this.Placa = placa;
-            this.PontosDeEntrega = new Queue<Local>();
+            this.IndexPontosDeEntrega = new Queue<int>();
             this.ItensNaCacamba = 0;
         }
 
         ///////////////////////////////////////////////////////////
 
-        public string adecionarLocal(Local localAdicionado)
+        public void adecionarLocal(int IndexlocalAdicionado)
         {
-            this.PontosDeEntrega.Enqueue(localAdicionado);
-            string retorno = "Itens para " + localAdicionado.Nome + " carregados";
-            if (this.ItensNaCacamba == this.Lotacao)
-            {
-                retorno += ", capasidade do caminhão lodado";
-            }
-            return retorno;
+            this.IndexPontosDeEntrega.Enqueue(IndexlocalAdicionado);
+            //string retorno = "Itens para " + localAdicionado.Nome + " carregados";
         }
 
-        public string entregar()
+        public string entregar(ref List<Local> locais)
         {
             string final = "Percurso do caminhão " + this.Placa + ":\n";
             int holderPosicaoLocal = 0;
-            while (this.PontosDeEntrega.Count != 0)
+            int itensEntregues = 0;
+            while (this.IndexPontosDeEntrega.Count != 0 && itensEntregues != this.Lotacao)
             {
-                Local local = PontosDeEntrega.Dequeue();
-                final += "\t" + util.posicaoAlfabetica(holderPosicaoLocal++)
-                + ". Visitado ponto de entrega "
-                + local.Nome
-                + ". Foram entregues os itens:\n";
+                Local local = locais[IndexPontosDeEntrega.Dequeue()];
 
-                int holderPosicaoItem = 0;
-                while (local.ItensEntrega.Count != 0)
+                if (local.ItensEntrega.Count == 0)
                 {
-                    ItemEntrega item = local.ItensEntrega.Pop();
-                    final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
-                    //holderPosicaoItem++;
+                    final += "";
                 }
+                else
+                {
+                    final += "\t" + util.posicaoAlfabetica(holderPosicaoLocal++)
+                    + ". Visitado ponto de entrega "
+                    + local.Nome
+                    + ". Foram entregues os itens:\n";
+
+                    int holderPosicaoItem = 0;
+                    while (local.ItensEntrega.Count != 0 && itensEntregues != this.Lotacao)
+                    {
+                        ItemEntrega item = local.ItensEntrega.Pop();
+                        final += "\t\t" + util.posicaoAlfabetica(holderPosicaoItem++) + ". " + item.Nome + "\n";
+                        itensEntregues++;
+                    }
+                }
+
                 //holderPosicaoLocal++;
             }
             return final;
 
         }
 
-        public override string ToString()
+        /*public override string ToString()
         {
             string final = "Percurso do caminhão " + this.Placa + ":\n";
             int holderPosicaoLocal = 0;
@@ -79,7 +84,7 @@ namespace proj_3.Domain
             }
             return final;
 
-        }
+        }*/
 
         /*public string adecionarLocal(ref List<Local> localAdicionado, int ponto)
         {
