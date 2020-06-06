@@ -19,26 +19,7 @@ namespace proj_3
             itens = new List<ItemEntrega>();
             caminhoes = new List<Caminhao>();
 
-            //teste - variaveis
-            for (int i = 0; i < 40; i++)
-            {
-                itens.Add(new ItemEntrega(++identificadorItem, ("item " + i)));
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                locais.Add(new Local(++identificadorLocal, ("Lugar " + i)));
-            }
-
-            for (int i = 0; i < 3; i++)
-            {
-                caminhoes.Add(new Caminhao("Caminhão " + i));
-            }
-            caminhoes[0].adecionarLocal(0);
-            caminhoes[0].adecionarLocal(1);
-            caminhoes[1].adecionarLocal(1);
-            caminhoes[1].adecionarLocal(2);
-            caminhoes[2].adecionarLocal(3);
-            //////////
+            variaveisTeste();
 
             while (itemMenu != 0)
             {
@@ -142,7 +123,7 @@ namespace proj_3
                 System.Console.WriteLine(i + ". " + itens[i].Nome);
             }
             string inputItemString = System.Console.ReadLine();
-            if (!int.TryParse(inputItemString, out itemNum) || itemNum > itens.Count-1 )
+            if (!int.TryParse(inputItemString, out itemNum) || itemNum > itens.Count - 1)
             {
                 return "Erro, opção não permetida. Tente novamente";
             }
@@ -153,16 +134,16 @@ namespace proj_3
                 System.Console.WriteLine(i + ". " + locais[i].Nome);
             }
             string inputLocalString = System.Console.ReadLine();
-            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count-1 )
+            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count - 1)
             {
                 return "Erro, opção não permetida. Tente novamente";
             }
-            
-            locais[localNum].ItensEntrega.Push(new ItemEntrega(itens[itemNum].Identificador,itens[itemNum].Nome));
+
+            locais[localNum].ItensEntrega.Push(new ItemEntrega(itens[itemNum].Identificador, itens[itemNum].Nome));
 
             itens.RemoveAt(itemNum);
 
-            return("Item " +  locais[localNum].ItensEntrega.Peek().Nome + " adecionado em" + locais[localNum].Nome);
+            return ("Item " + locais[localNum].ItensEntrega.Peek().Nome + " adecionado em" + locais[localNum].Nome);
         }
         private static string associarPontoDeEntregaACamiao()
         {
@@ -175,7 +156,7 @@ namespace proj_3
                 System.Console.WriteLine(i + ". " + locais[i].Nome);
             }
             string inputLocalString = System.Console.ReadLine();
-            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count-1 )
+            if (!int.TryParse(inputLocalString, out localNum) || localNum > locais.Count - 1)
             {
                 return "Erro, opção não permetida. Tente novamente";
             }
@@ -185,7 +166,7 @@ namespace proj_3
                 System.Console.WriteLine(i + ". " + caminhoes.ElementAt(i).Placa);
             }
             string inputCaminhaoString = System.Console.ReadLine();
-            if (!int.TryParse(inputCaminhaoString, out caminhaoNum) || caminhaoNum > caminhoes.Count-1 )
+            if (!int.TryParse(inputCaminhaoString, out caminhaoNum) || caminhaoNum > caminhoes.Count - 1)
             {
                 return "Erro, opção não permetida. Tente novamente";
             }
@@ -203,9 +184,60 @@ namespace proj_3
             string returnString = "";
             foreach (var caminhao in caminhoes)
             {
-                returnString += caminhao.entregar(ref locais)+"\n\n";
+                returnString += caminhao.entregar(ref locais) + "\n\n";
             }
             return returnString;
+        }
+
+        private static void variaveisTeste()
+        {
+            //teste - variaveis
+            for (int i = 0; i < 6; i++)
+            {
+                locais.Add(new Local(++identificadorLocal, ("Lugar " + i)));
+            }
+
+            for (int i = 0; i < 60; i++)
+            {
+                itens.Add(new ItemEntrega(++identificadorItem, ("item " + i)));
+                int numLocal = -1;
+                if (i < 18)
+                {
+                    numLocal = 0;
+                }
+                else if (i < 30)
+                {
+                    numLocal = 1;
+                }
+                else if (i < 50)
+                {
+                    numLocal = 2;
+                }
+                else if (i < 55)
+                {
+                    numLocal = 3;
+                }
+                else if (i < 51)
+                {
+                    numLocal = 4;
+                }
+                if (numLocal > -1)
+                {
+                    locais[numLocal].ItensEntrega.Push(itens[itens.Count-1]);
+                    itens.RemoveAt(itens.Count-1);
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                caminhoes.Add(new Caminhao("Caminhão " + i));
+            }
+            caminhoes[0].adecionarLocal(0);
+            caminhoes[0].adecionarLocal(1);
+            caminhoes[1].adecionarLocal(1);
+            caminhoes[1].adecionarLocal(2);
+            caminhoes[2].adecionarLocal(3);
+            //////////
         }
     }
 }
