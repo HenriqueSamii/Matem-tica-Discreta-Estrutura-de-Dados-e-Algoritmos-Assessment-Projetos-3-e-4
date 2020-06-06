@@ -173,7 +173,7 @@ namespace proj_3
 
             caminhoes[caminhaoNum].adecionarLocal(localNum);
 
-            return "Pondo de entrega " + locais[localNum].Nome + " andecionado no camhão" + caminhoes[caminhaoNum].Placa;
+            return "Ponto de entrega " + locais[localNum].Nome + " andecionado no camhão" + caminhoes[caminhaoNum].Placa;
         }
         private static string realizarEntregas()
         {
