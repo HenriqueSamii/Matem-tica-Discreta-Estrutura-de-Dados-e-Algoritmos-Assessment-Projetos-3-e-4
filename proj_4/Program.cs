@@ -28,8 +28,8 @@ namespace proj_4
             }
 
             System.Console.WriteLine(itensExistentes);
-            Console.WriteLine("Iterativa:\n" + d + " aparece " + numeroDeVezesDeD() + " vezes no etor V ");
-            Console.WriteLine("Recusrivo:\n" + d + " aparece " + numeroDeVezesDeDRecursivo(V.Count - 1) + " vezes no etor V ");
+            Console.WriteLine("Iterativa:\n" + d + " aparece " + numeroDeVezesDeD() + " vezes no vetor V ");
+            Console.WriteLine("Recusrivo:\n" + d + " aparece " + numeroDeVezesDeDRecursivo(V.Count - 1) + " vezes no vetor V ");
         }
 
         private static int numeroDeVezesDeD (){
