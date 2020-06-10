@@ -12,6 +12,7 @@ namespace proj_4
         {
             V = new List<Pacote>();
             rnd = new Random();
+            d = 1;
 
             string itensExistentes = "";
 
@@ -25,10 +26,10 @@ namespace proj_4
                 itensExistentes += codigoB;
                 V.Add(new Pacote(codigoB));
             }
-            d = 1;
+
             System.Console.WriteLine(itensExistentes);
             Console.WriteLine("Iterativa:\n" + d + " aparece " + numeroDeVezesDeD() + " vezes no etor V ");
-            Console.WriteLine("Recusrivo:\n" + d + " aparece" + numeroDeVezesDeDRecursivo(V.Count - 1) + " vezes no etor V ");
+            Console.WriteLine("Recusrivo:\n" + d + " aparece " + numeroDeVezesDeDRecursivo(V.Count - 1) + " vezes no etor V ");
         }
 
         private static int numeroDeVezesDeD (){
@@ -41,7 +42,7 @@ namespace proj_4
         }
 
         private static int numeroDeVezesDeDRecursivo (int index){
-            if (d == 0)
+            if (index == 0)
             {
                 return isEqualVectorItem(index);
             }
